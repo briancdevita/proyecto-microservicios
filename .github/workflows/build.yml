@@ -2,9 +2,8 @@ name: Build All Microservices
 
 on:
   push:
-    paths:
-      - '**.java'
-      - '**/pom.xml'
+    branches:
+      - main
   pull_request:
     paths:
       - '**.java'
