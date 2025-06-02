@@ -1,0 +1,37 @@
+name: Build All Microservices
+
+on:
+  push:
+    paths:
+      - '**.java'
+      - '**/pom.xml'
+  pull_request:
+    paths:
+      - '**.java'
+      - '**/pom.xml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build Order Service
+        working-directory: order-service
+        run: mvn clean package -DskipTests=false
+
+      - name: Build Inventory Service
+        working-directory: inventory-service
+        run: mvn clean package -DskipTests=false
+
+      - name: Build Notification Service
+        working-directory: notification-service
+        run: mvn clean package -DskipTests=false
